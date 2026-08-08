@@ -1,0 +1,75 @@
+using Kaan.SecurityPlatform.Domain.Enums;
+
+namespace Kaan.SecurityPlatform.Application.Features.Findings.Dtos;
+
+public sealed record FindingListItemDto(
+    Guid Id,
+    Guid ScanResultId,
+    Guid? ScanJobId,
+    string? DomainHostName,
+    string Title,
+    Severity Severity,
+    Severity TechnicalSeverity,
+    FindingClass FindingClass,
+    bool BugBountyEligible,
+    SubmissionRecommendation SubmissionRecommendation,
+    ConfidenceLevel ConfidenceLevel,
+    string Category,
+    FindingStatus Status,
+    string? AffectedUrl,
+    string? Fingerprint,
+    DateTime FirstSeenAt,
+    DateTime LastSeenAt);
+
+public sealed record FindingDetailDto(
+    Guid Id,
+    Guid CompanyId,
+    Guid ScanResultId,
+    Guid? ScanJobId,
+    Guid? DomainAssetId,
+    string? DomainHostName,
+    bool DomainIsVerified,
+    string Title,
+    string Description,
+    string? TechnicalDescription,
+    string? BusinessImpact,
+    Severity Severity,
+    Severity TechnicalSeverity,
+    Exploitability Exploitability,
+    bool DemonstratedImpact,
+    bool RequiresManualValidation,
+    FindingClass FindingClass,
+    bool BugBountyEligible,
+    string? EligibilityReason,
+    string? ProgramPolicyMatch,
+    SubmissionRecommendation SubmissionRecommendation,
+    BugBountyPolicyCategory PolicyCategory,
+    ConfidenceLevel ConfidenceLevel,
+    string Category,
+    string? CweCode,
+    string? OwaspCategory,
+    string? AffectedUrl,
+    string? AffectedParameter,
+    string? Evidence,
+    string? Remediation,
+    string? RemediationExampleConfig,
+    string? TurkishExecutiveSummary,
+    FindingStatus Status,
+    string CheckCode,
+    string? Fingerprint,
+    DateTime FirstSeenAt,
+    DateTime LastSeenAt,
+    bool ConfirmedVulnerability,
+    ValidationStatus? LatestValidationStatus,
+    bool SubmissionEligible,
+    bool PotentialRewardEligible,
+    Guid? LatestValidationRunId,
+    IReadOnlyList<FindingKnowledgeLinkDto> KnowledgeLinks);
+
+public sealed record FindingKnowledgeLinkDto(
+    Guid ArticleId,
+    string ArticleSlug,
+    string ArticleTitle,
+    int RelevanceScore);
+
+public sealed record UpdateFindingStatusRequest(FindingStatus NewStatus, string? Note);

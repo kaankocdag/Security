@@ -1,0 +1,69 @@
+# Build
+**/bin/
+**/obj/
+**/out/
+**/dist/
+*.dll
+*.exe
+*.pdb
+*.cache
+*.user
+*.suo
+*.slnLaunch.user
+
+# Visual Studio / Rider / VS Code local
+.vs/
+.idea/
+*.DotSettings.user
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json.example
+
+# .NET
+project.lock.json
+project.fragment.lock.json
+artifacts/
+TestResults/
+*.nupkg
+*.snupkg
+
+# Node / Next.js
+**/node_modules/
+**/.next/
+**/out/
+**/.turbo/
+**/.vercel/
+*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Env & secrets — asla commit etme
+.env
+.env.*
+!.env.example
+!**/.env.example
+!**/.env.local.example
+**/appsettings.*.local.json
+**/secrets.json
+**/user-secrets.json
+
+# OS / misc
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.swp
+coverage/
+.playwright/
+test-results/
+playwright-report/
+
+# Docker local overrides with secrets
+docker-compose.*.local.yml
+
+# Large / generated
+**/wwwroot/lib/
+*.zip
+*.7z

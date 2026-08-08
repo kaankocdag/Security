@@ -1,0 +1,96 @@
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "${MSSQL_SA_PASSWORD:-KaanSec!2026}"
+      MSSQL_PID: "Developer"
+    ports:
+      - "1433:1433"
+    volumes:
+      - kaan-db-data:/var/opt/mssql
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P \"$$MSSQL_SA_PASSWORD\" -Q 'SELECT 1' -C || /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P \"$$MSSQL_SA_PASSWORD\" -Q 'SELECT 1'"]
+      interval: 20s
+      timeout: 10s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: docker/api.Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Production"
+      ConnectionStrings__Default: "Server=db,1433;Database=KaanSecurityPlatform;User Id=sa;Password=${MSSQL_SA_PASSWORD:-KaanSec!2026};Encrypt=False;TrustServerCertificate=True"
+      ConnectionStrings__Hangfire: "Server=db,1433;Database=KaanSecurityHangfire;User Id=sa;Password=${MSSQL_SA_PASSWORD:-KaanSec!2026};Encrypt=False;TrustServerCertificate=True"
+      Jwt__Issuer: "kaan-security-platform"
+      Jwt__Audience: "kaan-security-platform-clients"
+      Jwt__SigningKey: "${JWT_SIGNING_KEY:-CHANGE_ME_TO_A_RANDOM_STRING_OF_AT_LEAST_64_CHARACTERS}"
+      Cors__AllowedOrigins__0: "http://localhost:3000"
+      Cors__AllowedOrigins__1: "http://localhost"
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "5089:8080"
+    volumes:
+      - kaan-uploads:/app/wwwroot/uploads
+
+  worker:
+    build:
+      context: .
+      dockerfile: docker/worker.Dockerfile
+    environment:
+      DOTNET_ENVIRONMENT: "Production"
+      ConnectionStrings__Default: "Server=db,1433;Database=KaanSecurityPlatform;User Id=sa;Password=${MSSQL_SA_PASSWORD:-KaanSec!2026};Encrypt=False;TrustServerCertificate=True"
+      ConnectionStrings__Hangfire: "Server=db,1433;Database=KaanSecurityHangfire;User Id=sa;Password=${MSSQL_SA_PASSWORD:-KaanSec!2026};Encrypt=False;TrustServerCertificate=True"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  lab-worker:
+    profiles: ["lab"]
+    build:
+      context: .
+      dockerfile: docker/lab-worker.Dockerfile
+    environment:
+      DOTNET_ENVIRONMENT: "Production"
+      ConnectionStrings__Default: "Server=db,1433;Database=KaanSecurityPlatform;User Id=sa;Password=${MSSQL_SA_PASSWORD:-KaanSec!2026};Encrypt=False;TrustServerCertificate=True"
+      ConnectionStrings__Hangfire: "Server=db,1433;Database=KaanSecurityHangfire;User Id=sa;Password=${MSSQL_SA_PASSWORD:-KaanSec!2026};Encrypt=False;TrustServerCertificate=True"
+      Lab__RuntimeMode: "Docker"
+      Lab__DockerEndpoint: "unix:///var/run/docker.sock"
+      Lab__ImagePrefix: "kaan-lab/"
+      Lab__InternalNetworkName: "kaan-lab-net"
+      Lab__AllowEgress: "true"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      db:
+        condition: service_healthy
+
+  web:
+    build:
+      context: .
+      dockerfile: docker/web.Dockerfile
+    environment:
+      KAAN_API_BASE_URL: "http://api:8080"
+      NEXT_PUBLIC_APP_NAME: "Kaan Security Platform"
+      NODE_ENV: "production"
+    depends_on:
+      - api
+    ports:
+      - "3000:3000"
+
+  nginx:
+    image: nginx:1.27-alpine
+    depends_on:
+      - api
+      - web
+    ports:
+      - "80:80"
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+
+volumes:
+  kaan-db-data:
+  kaan-uploads:

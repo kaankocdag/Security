@@ -1,0 +1,20 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Kaan.SecurityPlatform.Domain/Kaan.SecurityPlatform.Domain.csproj" />
+    <Project Path="src/Kaan.SecurityPlatform.Application/Kaan.SecurityPlatform.Application.csproj" />
+    <Project Path="src/Kaan.SecurityPlatform.Infrastructure/Kaan.SecurityPlatform.Infrastructure.csproj" />
+    <Project Path="src/Kaan.SecurityPlatform.Api/Kaan.SecurityPlatform.Api.csproj" />
+    <Project Path="src/Kaan.SecurityPlatform.LabWorker/Kaan.SecurityPlatform.LabWorker.csproj" />
+    <Project Path="src/Kaan.SecurityPlatform.ScannerWorker/Kaan.SecurityPlatform.ScannerWorker.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Kaan.SecurityPlatform.UnitTests/Kaan.SecurityPlatform.UnitTests.csproj" />
+    <Project Path="tests/Kaan.SecurityPlatform.IntegrationTests/Kaan.SecurityPlatform.IntegrationTests.csproj" />
+  </Folder>
+  <Folder Name="/solution items/">
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="global.json" />
+    <File Path="README.md" />
+  </Folder>
+</Solution>

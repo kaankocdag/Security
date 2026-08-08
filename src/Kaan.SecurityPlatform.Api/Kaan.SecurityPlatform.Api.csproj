@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <RootNamespace>Kaan.SecurityPlatform.Api</RootNamespace>
+    <AssemblyName>Kaan.SecurityPlatform.Api</AssemblyName>
+    <UserSecretsId>kaan-security-platform-api</UserSecretsId>
+    <InvariantGlobalization>false</InvariantGlobalization>
+    <!-- Visual Studio F5: Next.js arayüzünü otomatik başlatır -->
+    <SpaRoot>..\..\web\kaan-security-web\</SpaRoot>
+    <SpaProxyServerUrl>http://localhost:3000</SpaProxyServerUrl>
+    <SpaProxyLaunchCommand>npm run dev</SpaProxyLaunchCommand>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SpaProxy" />
+    <PackageReference Include="Swashbuckle.AspNetCore" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Serilog.AspNetCore" />
+    <PackageReference Include="Serilog.Sinks.Console" />
+    <PackageReference Include="Serilog.Sinks.File" />
+    <PackageReference Include="Serilog.Enrichers.Environment" />
+    <PackageReference Include="Serilog.Enrichers.Process" />
+    <PackageReference Include="Serilog.Enrichers.Thread" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+    <PackageReference Include="Hangfire.AspNetCore" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Kaan.SecurityPlatform.Application\Kaan.SecurityPlatform.Application.csproj" />
+    <ProjectReference Include="..\Kaan.SecurityPlatform.Infrastructure\Kaan.SecurityPlatform.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

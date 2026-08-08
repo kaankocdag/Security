@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>Kaan.SecurityPlatform.Domain</RootNamespace>
+    <AssemblyName>Kaan.SecurityPlatform.Domain</AssemblyName>
+  </PropertyGroup>
+
+</Project>

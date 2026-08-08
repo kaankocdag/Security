@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>Kaan.SecurityPlatform.Infrastructure</RootNamespace>
+    <AssemblyName>Kaan.SecurityPlatform.Infrastructure</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Kaan.SecurityPlatform.UnitTests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Http" />
+    <PackageReference Include="Microsoft.Extensions.Http.Polly" />
+    <PackageReference Include="Polly" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
+    <PackageReference Include="AngleSharp" />
+    <PackageReference Include="DnsClient" />
+    <PackageReference Include="Markdig" />
+    <PackageReference Include="Microsoft.Playwright" />
+    <PackageReference Include="SixLabors.ImageSharp" />
+    <PackageReference Include="Hangfire.NetCore" />
+    <PackageReference Include="Hangfire.SqlServer" />
+    <PackageReference Include="Hangfire.MemoryStorage" />
+    <PackageReference Include="Docker.DotNet" />
+    <!-- Transitive güvenlik yamaları (CPM pinning) -->
+    <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="System.Security.Cryptography.Xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Kaan.SecurityPlatform.Application\Kaan.SecurityPlatform.Application.csproj" />
+    <ProjectReference Include="..\Kaan.SecurityPlatform.Domain\Kaan.SecurityPlatform.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

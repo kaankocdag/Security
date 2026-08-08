@@ -1,0 +1,22 @@
+services:
+  api:
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+    ports:
+      - "5089:8080"
+
+  worker:
+    environment:
+      DOTNET_ENVIRONMENT: "Development"
+
+  web:
+    environment:
+      NODE_ENV: "development"
+    command: ["npm", "run", "dev"]
+    volumes:
+      - ./web/kaan-security-web:/app
+      - /app/node_modules
+
+  nginx:
+    profiles:
+      - proxy
